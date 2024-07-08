@@ -3,7 +3,7 @@ import Box from './Box';
 
 interface RowProps {
     isActive: boolean;
-    onEnter: () => void;
+    onEnter: (success: boolean) => void;
 }
 
 let answer = "SANJUF";
@@ -18,7 +18,7 @@ const Row = ({ isActive, onEnter }: RowProps) => {
 
     const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>, index: number) => {
         if (!submitted) {
-            let value = e.target.value.toUpperCase(); // Convert to uppercase
+            let value = e.target.value.toUpperCase(); 
             // Validation: Allow only alphabetic characters
             if (/^[A-Z]$/.test(value)) {
                 const newValues = [...values];
@@ -31,7 +31,7 @@ const Row = ({ isActive, onEnter }: RowProps) => {
             }
         }
     }, [values, submitted]);
-
+    
     const handleKeyUp = useCallback((e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
         if (e.key === 'Backspace' && index > 0 && !values[index]) {
             inputData.current[index - 1]?.focus();
@@ -42,19 +42,28 @@ const Row = ({ isActive, onEnter }: RowProps) => {
             console.log('answerArray: ', answerArray);
 
             const newColors = [...colors];
+            let rowSuccess = true;
 
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < numberOfLetters; i++) {
                 if (answerArray[i] === values[i]) {
                     newColors[i] = 'bg-green-400';
                 } else if (answerArray.includes(values[i])) {
                     newColors[i] = 'bg-yellow-400';
+                    rowSuccess = false;
                 } else {
                     newColors[i] = 'bg-gray-400';
+                    rowSuccess = false;
                 }
             }
 
             setColors(newColors);
-            onEnter();
+            onEnter(rowSuccess);
+
+            if(rowSuccess) {
+                setTimeout(() => {
+                    alert("yay you got it!");
+                }, 100); // Delay the alert by 100ms
+            }
         }
     }, [values, onEnter, submitted, colors]);
 
@@ -82,3 +91,4 @@ const Row = ({ isActive, onEnter }: RowProps) => {
 }
 
 export default Row;
+    
