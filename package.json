@@ -9,17 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
     "@prisma/client": "^5.16.1",
+    "@radix-ui/themes": "^3.1.1",
     "axios": "^1.7.2",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.407.0",
     "mongoose": "^8.4.3",
     "next": "14.2.4",
     "nodemailer": "^6.9.14",
     "react": "^18",
     "react-activity-calendar": "^2.1.5",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.52.1",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

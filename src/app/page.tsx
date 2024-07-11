@@ -1,14 +1,19 @@
 "use client"
-import GameBoard from "./UI/components/GameBoard";
-import ActivityGraph from "./UI/widgets/ActivityGraph";
+import '@radix-ui/themes/styles.css';
+import { Theme } from '@radix-ui/themes';
+import GameBoard from "../UI/components/GameBoard";
+import ActivityGraph from "../UI/widgets/ActivityGraph";
 
 export default function Home() {
   
 
   return (
     <>
-      <GameBoard />
-      <ActivityGraph />
+    <Theme>
+    <GameBoard />
+    <ActivityGraph />
+        </Theme>
+      
     </>
   );
 }
