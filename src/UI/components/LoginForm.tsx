@@ -44,8 +44,9 @@ const SignInForm = () => {
     if(loginData?.error) {
       console.log(Error)
     } else {
-      router.refresh()
+      
       router.push('/')
+      router.refresh()
     }
     console.log(loginData);
   };

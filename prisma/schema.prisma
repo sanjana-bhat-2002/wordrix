@@ -14,11 +14,19 @@ datasource db {
 }
 
 model User {
-  id      Int      @id @default(autoincrement())
-  email   String   @unique
-  username    String @unique
-  password    String 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
+  id        Int          @id @default(autoincrement())
+  email     String       @unique
+  username  String       @unique
+  password  String       
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  streaks   StreakData[] // Adding a relation field for the streaks
 }
+
+model StreakData {
+  id        Int      @id @default(autoincrement()) // Adding an id field for StreakData
+  date      DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id]) // Setting up the relation to User
+}
+
