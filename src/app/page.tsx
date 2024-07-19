@@ -12,11 +12,13 @@ import { getServerSession } from "next-auth";
 
 
 
+
 export default function Home() {
   
 
   return (
     <>
+    
     <Theme appearance="dark">
       <Navbar/>
     <GameBoard />
