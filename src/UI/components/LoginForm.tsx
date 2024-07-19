@@ -16,6 +16,7 @@ import { Button } from '@/UI/widgets/button';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import { useToast } from "@/components/ui/use-toast"
 
 const FormSchema = z.object({
   email: z.string().min(1, 'Email is required').email('Invalid email'),
@@ -27,6 +28,7 @@ const FormSchema = z.object({
 
 const SignInForm = () => {
   const router = useRouter();
+  const { toast } = useToast()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -42,7 +44,11 @@ const SignInForm = () => {
       redirect: false
     })
     if(loginData?.error) {
-      console.log(Error)
+      toast({
+        title: "Oops!",
+        description: "Something went wrong!",
+        variant: "destructive"
+      })
     } else {
       
       router.push('/')

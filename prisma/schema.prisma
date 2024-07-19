@@ -25,8 +25,12 @@ model User {
 
 model StreakData {
   id        Int      @id @default(autoincrement()) // Adding an id field for StreakData
-  date      DateTime @default(now())
+  date      DateTime 
+  level     Int
+  count     Int
   userId    Int
   user      User     @relation(fields: [userId], references: [id]) // Setting up the relation to User
 }
+
+
 

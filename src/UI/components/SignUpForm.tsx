@@ -15,6 +15,7 @@ import { Input } from '@/UI/widgets/input';
 import { Button } from '@/UI/widgets/button';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { toast, useToast } from '@/components/ui/use-toast';
 // import GoogleSignInButton from '../GoogleSignInButton';
 
 
@@ -34,6 +35,7 @@ const FormSchema = z
   });
 
 const SignUpForm = () => {
+  const { toast } = useToast()
   const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -63,7 +65,11 @@ const SignUpForm = () => {
       router.push('/login')
     }
     else {
-      console.error('Registration failed')
+      toast({
+        title: "Oops!",
+        description: "Something went wrong!",
+        variant: "destructive"
+      })
     }
   };
 
