@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import Row from '../widgets/Row';
 import { useSession } from 'next-auth/react';
-import { SessionProvider } from 'next-auth/react';
 import SuccessModal from './SuccessModal';
 
 const GameBoard: React.FC = () => {
@@ -21,8 +20,6 @@ const GameBoard: React.FC = () => {
                 alert("yay you got it!");
             }, 100); // Delay the alert by 100ms
             setShowModal(true);
-            const response = await fetch('/api/dailypuzzle')
-            console.log(response)
             setActiveRow(0);
             setAllAttempts([]);
         } else {
