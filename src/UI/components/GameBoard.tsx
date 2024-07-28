@@ -10,16 +10,18 @@ const GameBoard: React.FC = () => {
     const [activeRow, setActiveRow] = useState(0);
     const [allAttempts, setAllAttempts] = useState<boolean[]>([]);
     const [showModal, setShowModal] = useState(false);
+    const [success, setSuccess] = useState(false);
     const rows = Array(6).fill(null);
 
     const handleEnter = async (rowSuccess: boolean) => {
         setAllAttempts((prev) => [...prev, rowSuccess]);
         if (rowSuccess) {
             // If a row is successful, reset the attempts and show success alert
-            setTimeout(() => {
-                alert("yay you got it!");
-            }, 100); // Delay the alert by 100ms
+            // setTimeout(() => {
+            //     alert("yay you got it!");
+            // }, 100); // Delay the alert by 100ms
             setShowModal(true);
+            setSuccess(true)
             setActiveRow(0);
             setAllAttempts([]);
         } else {
@@ -39,8 +41,8 @@ const GameBoard: React.FC = () => {
             {rows.map((_, index) => (
                 <Row key={index} isActive={index === activeRow} onEnter={handleEnter} />
             ))}
-            <SuccessModal show={showModal} onClose={() => setShowModal(false)}>
-                <p>Yay, you got it!</p>
+            <SuccessModal session={session} success={success} show={showModal} onClose={() => setShowModal(false)}>
+                
             </SuccessModal>
         </div>
     );

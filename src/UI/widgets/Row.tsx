@@ -59,11 +59,11 @@ const Row = ({ isActive, onEnter }: RowProps) => {
             setColors(newColors);
             onEnter(rowSuccess);
 
-            if(rowSuccess) {
-                setTimeout(() => {
-                    alert("yay you got it!");
-                }, 100); // Delay the alert by 100ms
-            }
+            // if(rowSuccess) {
+            //     // setTimeout(() => {
+            //     //     alert("yay you got it!");
+            //     // }, 100); // Delay the alert by 100ms
+            // }
         }
     }, [values, onEnter, submitted, colors]);
 
