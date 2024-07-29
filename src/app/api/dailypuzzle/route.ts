@@ -7,8 +7,8 @@ import { Session } from "inspector";
 
 const streakSchema = z.object({
     date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), // Ensuring the date is in yyyy-mm-dd format
-    count: z.number(),
-    level: z.number()
+    weight: z.number(),
+    
 });
 
 export async function POST(req: NextRequest) {
@@ -19,13 +19,12 @@ export async function POST(req: NextRequest) {
         }
 
         const body = await req.json();
-        const { date, count, level } = streakSchema.parse(body);
+        const { date, weight } = streakSchema.parse(body);
         const dateObject = new Date(date);
         const newStreakData = await db.streakData.create({
             data: {
                 date: dateObject,
-                count,
-                level,
+                weight,
                 user: { connect: { id: parseInt(session.user.id) } } // Assumes user ID is available in the session
             }
         });
