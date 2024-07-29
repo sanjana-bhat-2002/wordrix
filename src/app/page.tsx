@@ -1,11 +1,11 @@
 
 import '@radix-ui/themes/styles.css';
 import { Theme } from '@radix-ui/themes';
-import GameBoard from "../UI/components/GameBoard";
-import ActivityGraph from "../UI/widgets/ActivityGraph";
-import { buttonVariants } from '@/UI/widgets/button';
+import GameBoard from "@/components/widgets/GameBoard";
+import ActivityGraph from "../components/widgets/ActivityGraph";
+import { buttonVariants } from '@/components/ui/button';
 import Link from 'next/link';
-import Navbar from "../UI/components/Navbar"
+import Navbar from "@/components/widgets/Navbar"
 import { authOptions } from "@/lib/auth";
 import { getServerSession } from "next-auth";
 
@@ -22,7 +22,7 @@ export default function Home() {
     <Theme appearance="dark">
       <Navbar/>
     <GameBoard />
-    <Link href="/admin" className={buttonVariants()}>
+    <Link href="/user" className={buttonVariants()}>
     Open Admin 
     </Link>
         </Theme>

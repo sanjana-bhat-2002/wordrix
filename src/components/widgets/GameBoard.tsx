@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react';
-import Row from '../widgets/Row';
+import Row from './Row';
 import { useSession } from 'next-auth/react';
 import SuccessModal from './SuccessModal';
 
@@ -16,10 +16,6 @@ const GameBoard: React.FC = () => {
     const handleEnter = async (rowSuccess: boolean) => {
         setAllAttempts((prev) => [...prev, rowSuccess]);
         if (rowSuccess) {
-            // If a row is successful, reset the attempts and show success alert
-            // setTimeout(() => {
-            //     alert("yay you got it!");
-            // }, 100); // Delay the alert by 100ms
             setShowModal(true);
             setSuccess(true)
             setActiveRow(0);
@@ -32,7 +28,7 @@ const GameBoard: React.FC = () => {
         if (activeRow === rows.length - 1 && !rowSuccess) {
             setTimeout(() => {
                 alert("You failed");
-            }, 100); // Delay the alert by 100ms
+            }, 100); 
         }
     };
 

@@ -12,14 +12,12 @@ interface ModalProps {
     success: boolean;
 }
 
-const modalText = ["Yay you've made it!", "Bummer, you've failed!"];
-
 const SuccessModal = ({ show, onClose, success, session }: ModalProps) => {
     const router = useRouter();
 
     const handleClose = () => {
         onClose();
-        //router.push('/admin'); // Navigate to the /admin route
+        //router.push('/user'); 
     };
     const getCurrentDate = (): string => {
         const date = new Date();
@@ -37,8 +35,7 @@ const SuccessModal = ({ show, onClose, success, session }: ModalProps) => {
             },
             body: JSON.stringify({
                 date: getCurrentDate(),
-                count: 2,
-                level: 1
+                weight: 2
             })
         });
 

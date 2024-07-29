@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import Box from './Box';
+import Box from '../../components/widgets/Box';
 
 interface RowProps {
     isActive: boolean;

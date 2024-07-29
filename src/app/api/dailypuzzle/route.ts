@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { z } from "zod";
-import { Session } from "inspector";
+
 
 const streakSchema = z.object({
     date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/), // Ensuring the date is in yyyy-mm-dd format

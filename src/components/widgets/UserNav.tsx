@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from "@/UI/widgets/button"
+import { Button } from "@/components/ui/button"
 import { signOut } from "next-auth/react"
 
 const UserNav = () => {
