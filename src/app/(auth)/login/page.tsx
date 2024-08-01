@@ -1,8 +1,8 @@
-import LoginForm from '@/components/widgets/LoginForm';
+import LoginForm from "@/components/widgets/LoginForm";
 
 const page = () => {
   return (
-    <div className='w-full'>
+    <div className="w-full">
       <LoginForm />
     </div>
   );

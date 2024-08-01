@@ -1,14 +1,18 @@
-"use client"
+"use client";
 
 import { useEffect, useState } from "react";
 import { CalendarHeatmap } from "@/components/ui/calendar-heatmap";
 
 export default function ActivityGraph() {
-  const [formattedData, setFormattedData] = useState<{ date: Date; weight: number }[]>([]);
+  const [formattedData, setFormattedData] = useState<
+    { date: Date; weight: number }[]
+  >([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const convertDateFormat = (inputArray: any[]): { date: Date; weight: number }[] => {
-    return inputArray.map(item => {
+  const convertDateFormat = (
+    inputArray: any[],
+  ): { date: Date; weight: number }[] => {
+    return inputArray.map((item) => {
       const date = new Date(item.date);
       return {
         date: date,
@@ -29,12 +33,11 @@ export default function ActivityGraph() {
 
       const data = await response.json();
       console.log("Data received:" + data);
-      //console.table(data); 
+      //console.table(data);
 
       const formatted = convertDateFormat(data);
-      console.log("Formatted data:" + formatted);
-      //console.table(formatted); 
-
+      console.log("after conversion", formatted);
+      //console.table(formatted);
       setFormattedData(formatted);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -61,9 +64,7 @@ export default function ActivityGraph() {
           numberOfMonths={3}
           weightedDates={formattedData}
         />
-        
       )}
-      
     </>
   );
 }

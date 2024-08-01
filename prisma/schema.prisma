@@ -17,19 +17,23 @@ model User {
   id        Int          @id @default(autoincrement())
   email     String       @unique
   username  String       @unique
-  password  String       
+  password  String
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
   streaks   StreakData[] // Adding a relation field for the streaks
 }
 
 model StreakData {
-  id        Int      @id @default(autoincrement()) // Adding an id field for StreakData
-  date      DateTime 
-  weight    Int
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id]) // Setting up the relation to User
+  id               Int              @id @default(autoincrement()) // Adding an id field for StreakData
+  date             DateTime
+  weight           Int
+  completionStatus CompletionStatus @default(PENDING)
+  userId           Int
+  user             User             @relation(fields: [userId], references: [id]) // Setting up the relation to User
 }
 
-
-
+enum CompletionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
