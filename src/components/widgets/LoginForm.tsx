@@ -59,7 +59,7 @@ const SignInForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <div className="space-y-2">
+        <div className="space-y-4">
           <FormField
             control={form.control}
             name="email"
@@ -91,7 +91,7 @@ const SignInForm = () => {
             )}
           />
         </div>
-        <Button className="w-full mt-6" type="submit">
+        <Button variant="default" className="w-full mt-6" type="submit">
           Sign in
         </Button>
       </form>
@@ -99,9 +99,9 @@ const SignInForm = () => {
         or
       </div>
 
-      <p className="text-center text-sm text-gray-600 mt-2">
+      <p className="text-center text-sm text-white mt-2">
         If you don&apos;t have an account, please&nbsp;
-        <Link className="text-blue-500 hover:underline" href="/signup">
+        <Link className="text-blue-400 hover:underline" href="/signup">
           Sign up
         </Link>
       </p>

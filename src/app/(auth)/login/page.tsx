@@ -2,7 +2,7 @@ import LoginForm from "@/components/widgets/LoginForm";
 
 const page = () => {
   return (
-    <div className="w-full">
+    <div className="w-1/2 mt-24">
       <LoginForm />
     </div>
   );

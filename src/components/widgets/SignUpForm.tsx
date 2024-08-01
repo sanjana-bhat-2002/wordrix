@@ -72,8 +72,8 @@ const SignUpForm = () => {
   };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+    <Form {...form} >
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="space-y-2">
           <FormField
             control={form.control}

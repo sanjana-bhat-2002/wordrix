@@ -2,7 +2,14 @@ import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { hash } from "bcryptjs";
 import * as z from "zod";
+import { sendEmail } from '@/actions/email-actions'
 
+import { VerificationTemplate } from '../../../../emails/VerificationTemplate'
+
+// Import a utility function to generate a secure token.
+import { generateSecureToken } from '@/lib/utils'
+import { User } from "@prisma/client";
+import React from "react";
 const userSchema = z.object({
   username: z.string().min(1, "Username is required").max(100),
   email: z.string().min(1, "Email is required").email("Invalid Email"),
@@ -47,9 +54,25 @@ export async function POST(req: Request) {
         username,
         email,
         password: hashedPassword,
-      },
+      } as User,
     });
 
+    const emailVerificationToken = generateSecureToken()
+    await db.user.update({
+      where: {
+       id: newUser.id,
+      },
+      data: {
+       emailVerificationToken,
+      },
+     })
+
+     await sendEmail({
+      to: [newUser.email],
+      subject: 'Verify your email address',
+      template: React.createElement(VerificationTemplate, { username: newUser.username, emailVerificationToken: emailVerificationToken }),
+     })
+     console.log("email sent")
     return NextResponse.json({ user: newUser, message: "New user created" });
   } catch (error) {
     return NextResponse.json({ message: "Server Error" }, { status: 500 });
