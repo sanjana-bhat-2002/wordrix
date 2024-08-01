@@ -7,10 +7,10 @@ export async function POST() {
   try {
     const currentDate = new Date();
 
-    // Find all users
+    
     const users = await prisma.user.findMany();
 
-    // Iterate over each user and create or update their daily status
+    
     for (const user of users) {
       const existingRecord = await prisma.streakData.findFirst({
         where: {
@@ -23,20 +23,20 @@ export async function POST() {
         await prisma.streakData.create({
           data: {
             date: currentDate,
-            weight: 0, // Default weight or based on your logic
+            weight: 0, 
             completionStatus: CompletionStatus.PENDING,
             userId: user.id,
           },
         });
       }
     }
-
+    console.log("Daily Status updated")
     return NextResponse.json({ message: 'Status updated for all users' }, {status: 200});
   } catch (error) {
     console.error(error);
     return NextResponse.json({ message: 'Internal server error' }, {status: 500});
   } finally {
     await prisma.$disconnect();
-    //NextResponse.json({ message: 'Internal server error' }, {status: 500});
+    
   }
 }
