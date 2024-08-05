@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Special_Elite } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import SessionAccesser from "@/components/widgets/SessionAccessor";
 import Navbar from "@/components/widgets/Navbar";
 
-const inter = Inter({ subsets: ["latin"] });
+const specialElite = Special_Elite({
+  weight: "400",
+  style: "normal",
+  preload: false
+});
 
 export const metadata: Metadata = {
   title: "Wordle Clone",
@@ -19,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-background`}>
+      <body className={`${specialElite.className} bg-background`}>
         <SessionAccesser>
           <Navbar />
           

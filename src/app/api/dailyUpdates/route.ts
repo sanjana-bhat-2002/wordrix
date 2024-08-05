@@ -7,7 +7,7 @@ export async function GET() {
   try {
     const currentDate = new Date();
 
-    
+    console.log("oi saale")
     const users = await prisma.user.findMany();
 
     

@@ -38,22 +38,34 @@ const SignInForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof FormSchema>) => {
-    const loginData = await signIn("credentials", {
+    const response = await signIn('credentials', {
+      redirect: false,
       email: values.email,
       password: values.password,
-      redirect: false,
-    });
-    if (loginData?.error) {
+     })
+     if (!response?.ok) {
+  // if the email is not verified we will show a message to the user.
+      if (response?.error === 'EmailNotVerified') {
+       toast({
+        title: 'Please, verify your email first.',
+        variant: 'destructive',
+       })
+  
+       return
+      }
+  
       toast({
-        title: "Oops!",
-        description: "Something went wrong!",
-        variant: "destructive",
-      });
-    } else {
+       title: 'Something went wrong!',
+       description: response?.error,
+       variant: 'destructive',
+      })
+      return
+     }
+     else {
       router.push("/");
       router.refresh();
     }
-    console.log(loginData);
+    console.log(response);
   };
 
   return (

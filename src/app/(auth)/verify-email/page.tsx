@@ -59,7 +59,7 @@ export default async function VerifyEmailPage({ searchParams }: VerifyEmailPageP
 					{verified && (
 						<Link
 							className='bg-primary text-white text-sm font-medium hover:bg-primary/90 h-10 px-4 py-2 rounded-lg w-full text-center'
-							href={'/auth/signin'}
+							href={'/login'}
 						>
 							Sign in
 						</Link>

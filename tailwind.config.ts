@@ -19,7 +19,7 @@ const config = {
     },
     extend: {
         colors: {
-          background: '#242424',
+          background: '#18181b',
           foreground: 'hsl(var(--foreground))',
           primary: '#76d930',
           secondary: 'hsl(var(--secondary))',

@@ -1,23 +1,24 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import Box from "../../components/widgets/Box";
+import { generate } from "random-words";
+import { useWordChecker } from "react-word-checker";
 
 interface RowProps {
   isActive: boolean;
   onEnter: (success: boolean) => void;
 }
 
-let answer = "SANJUF";
-let numberOfLetters = 6;
+let answer = generate({ minLength: 5, maxLength: 5 }).toString().toUpperCase();
+console.log("generated word is", answer);
+let numberOfLetters = answer.length;
+console.log("generated word length is", numberOfLetters);
 let answerArray = answer.split("");
 
 const Row = ({ isActive, onEnter }: RowProps) => {
-  const [values, setValues] = useState<string[]>(
-    Array(numberOfLetters).fill(""),
-  );
+  const { words, isLoading, wordExists } = useWordChecker("en");
+  const [values, setValues] = useState<string[]>(Array(numberOfLetters).fill(""));
   const [submitted, setSubmitted] = useState(false);
-  const [colors, setColors] = useState<string[]>(
-    Array(numberOfLetters).fill(""),
-  );
+  const [colors, setColors] = useState<string[]>(Array(numberOfLetters).fill(""));
   const inputData = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleChange = useCallback(
@@ -41,14 +42,27 @@ const Row = ({ isActive, onEnter }: RowProps) => {
 
   const handleKeyUp = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
-      if (e.key === "Backspace" && index > 0 && !values[index]) {
-        inputData.current[index - 1]?.focus();
+      if (e.key === "Backspace") {
+        if (values[index]) {
+          const newValues = [...values];
+          newValues[index] = "";
+          setValues(newValues);
+        } else if (index > 0) {
+          inputData.current[index - 1]?.focus();
+          const newValues = [...values];
+          newValues[index - 1] = "";
+          setValues(newValues);
+        }
       } else if (e.key === "Enter" && !submitted) {
-        setSubmitted(true);
         let userWord = values.join("");
         console.log("Current user word:", values);
         console.log("answerArray: ", answerArray);
 
+        if (!wordExists(userWord)) {
+          alert("Word doesn't exist");
+          return;
+        }
+        setSubmitted(true);
         const newColors = [...colors];
         let rowSuccess = true;
 
@@ -66,12 +80,6 @@ const Row = ({ isActive, onEnter }: RowProps) => {
 
         setColors(newColors);
         onEnter(rowSuccess);
-
-        // if(rowSuccess) {
-        //     // setTimeout(() => {
-        //     //     alert("yay you got it!");
-        //     // }, 100); // Delay the alert by 100ms
-        // }
       }
     },
     [values, onEnter, submitted, colors],

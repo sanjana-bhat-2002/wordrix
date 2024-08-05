@@ -38,9 +38,15 @@ export const authOptions: NextAuthOptions = {
             email: credentials.email,
           },
         });
+        
+        
 
         if (!existingUser) {
           return null;
+        }
+
+        if (!existingUser.accountVerified) {
+          throw new Error("EmailNotVerified");
         }
 
         const passwordMatch = await compare(

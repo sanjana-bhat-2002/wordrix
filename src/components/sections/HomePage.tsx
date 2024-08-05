@@ -1,12 +1,13 @@
 "use client";
 
 import { useGame } from "@/contexts/GameContext";
-import { Link } from "lucide-react";
+import  Link  from "next/link";
 import { buttonVariants } from "../ui/button";
 import GameBoard from "../widgets/GameBoard";
 import { CompletionStatus } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { use, useEffect, useState } from "react";
+import GameCompleted from "./GameCompleted";
 
 
 interface GameData {
@@ -18,7 +19,6 @@ interface GameData {
 }
 
 const Content = () => {
-  //const { gameStatus } = useGame();
   const [ status, setStatus] = useState<CompletionStatus>(CompletionStatus.PENDING);
   const { data: session } = useSession();
   console.log(JSON.stringify(session));
@@ -33,17 +33,21 @@ const Content = () => {
     console.log("getData() called in Home Page", data)
     const currentDate = new Date().toISOString()
     console.log("Current date: ", currentDate)
+    
     const filteredData = data.filter(
-      entry => entry.userId.toString() === session?.user.id && entry.date.slice(0, 9) === currentDate.slice(0, 9)
+      entry => entry.userId.toString() === session?.user.id && entry.date.slice(0, 10) === currentDate.slice(0, 10)
     );
     if (filteredData.length === 0) {
       console.log("No matching data found for the current date and userId");
       return;
     }
+    console.log("Filtered Data:", filteredData)
     const currentStatusString = filteredData[0].completionStatus;
+    console.log("Status string: ", currentStatusString);
     const currentStatus = CompletionStatus[currentStatusString as keyof typeof CompletionStatus];
 
     setStatus(currentStatus);
+    console.log("Status: ", status);
   }
 
   useEffect(() => {
@@ -52,7 +56,7 @@ const Content = () => {
   return (
     <>
       {status != CompletionStatus.PENDING ? (
-        <p className="text-white">Come back tomorrow</p>
+        <GameCompleted />
       ) : (
         <div>
           <GameBoard />

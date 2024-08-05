@@ -10,9 +10,9 @@ export default function Home() {
   return (
     <>
       <GameProvider>
-        <Theme appearance="dark">
+        
           <Content />
-        </Theme>
+        
       </GameProvider>
     </>
   );
