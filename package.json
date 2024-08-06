@@ -7,7 +7,8 @@
     "dev": "next dev",
     "start": "next start",
     "lint": "next lint",
-    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
+    "start-cron": "node .src/lib/cron.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
