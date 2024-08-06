@@ -1,10 +1,10 @@
 const cron = require('node-cron');
 
-// Schedule a job to run at midnight every day
+// Schedule a job to run every 30 seconds
 cron.schedule('30 * * * * *', async () => {
   try {
     const response = await fetch('http://localhost:3000/api/dailyUpdates', {
-      method: 'POST',
+      method: 'GET',
     });
 
     if (!response.ok) {

@@ -1,18 +1,18 @@
-import { PrismaClient, CompletionStatus } from '@prisma/client';
+import { db } from '@/lib/db';
+import { CompletionStatus } from '@prisma/client';
 import { NextResponse } from 'next/server';
 
-const prisma = new PrismaClient();
+
 
 export async function GET() {
   try {
     const currentDate = new Date();
 
-    console.log("oi saale")
-    const users = await prisma.user.findMany();
+    const users = await db.user.findMany();
 
     
     for (const user of users) {
-      const existingRecord = await prisma.streakData.findFirst({
+      const existingRecord = await db.streakData.findFirst({
         where: {
           userId: user.id,
           date: currentDate,
@@ -20,7 +20,7 @@ export async function GET() {
       });
 
       if (!existingRecord) {
-        await prisma.streakData.create({
+        await db.streakData.create({
           data: {
             date: currentDate,
             weight: 0, 
@@ -35,8 +35,5 @@ export async function GET() {
   } catch (error) {
     console.error(error);
     return NextResponse.json({ message: 'Internal server error' }, {status: 500});
-  } finally {
-    await prisma.$disconnect();
-    
-  }
+  } 
 }
