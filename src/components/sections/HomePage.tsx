@@ -8,6 +8,7 @@ import { CompletionStatus } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { use, useEffect, useState } from "react";
 import GameCompleted from "./GameCompleted";
+import Keypad from "../widgets/Keypad";
 
 
 interface GameData {
@@ -58,11 +59,11 @@ const Content = () => {
       {status != CompletionStatus.PENDING ? (
         <GameCompleted />
       ) : (
-        <div>
+        <div className="flex flex-col justify-center items-center">
           <GameBoard />
-          <Link href="/user" className={buttonVariants()}>
-            Open Admin
-          </Link>
+          {/* <Keypad onKeyPress={function (key: string): void {
+              throw new Error("Function not implemented.");
+            } } /> */}
         </div>
       )}
     </>
