@@ -129,11 +129,14 @@ const Row = ({ isActive, onEnter, keyPress, updateColors }: RowProps) => {
         for (let i = 0; i < numberOfLetters; i++) {
           if (answerArray[i] === values[i]) {
             newColors[i] = "bg-green-400";
+            updateColors(values[i], newColors[i])
           } else if (answerArray.includes(values[i])) {
             newColors[i] = "bg-yellow-400";
+            updateColors(values[i], newColors[i])
             rowSuccess = false;
           } else {
             newColors[i] = "bg-gray-400";
+            updateColors(values[i], newColors[i])
             rowSuccess = false;
           }
         }
