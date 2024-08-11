@@ -26,7 +26,7 @@ const dailyUpdates = async () => {
     }
 };
 
-const job = new CronJob('12 0 * * *', dailyUpdates);
+const job = new CronJob('10 1 * * *', dailyUpdates);
 
 job.start()
 
