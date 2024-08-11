@@ -1,7 +1,12 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import Box from "../../components/widgets/Box";
-import { generate } from "random-words";
+import { numberOfLetters, answerArray } from "@/lib/cron";
+const { generate } = require("random-words");
 import { useWordChecker } from "react-word-checker";
+
+// let answer = generate({ minLength: 5, maxLength: 5 }).toString().toUpperCase();
+// let numberOfLetters = answer.length;
+// let answerArray = answer.split("")
 
 interface RowProps {
   isActive: boolean;
@@ -10,11 +15,7 @@ interface RowProps {
   updateColors: (letter: string, color: string) => void
 }
 
-let answer = generate({ minLength: 5, maxLength: 5 }).toString().toUpperCase();
-console.log("generated word is", answer);
-let numberOfLetters = answer.length;
-console.log("generated word length is", numberOfLetters);
-let answerArray = answer.split("");
+
 
 const Row = ({ isActive, onEnter, keyPress, updateColors }: RowProps) => {
   const { words, isLoading, wordExists } = useWordChecker("en");

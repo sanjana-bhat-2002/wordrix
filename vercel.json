@@ -1,5 +1,8 @@
 {
     "crons": [
-      
+        {
+            "path": "/api/dailyUpdates",
+            "schedule": "5 22 * * *"
+        }
     ]
 }
