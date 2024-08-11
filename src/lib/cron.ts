@@ -1,6 +1,6 @@
 let numberOfLetters: number, answerArray: string[];
 
-const { CronJob } = require('cron');
+import { CronJob } from 'cron';
 
 const dailyUpdates = async () => {
     try {
@@ -26,7 +26,7 @@ const dailyUpdates = async () => {
     }
 };
 
-const job = new CronJob('26 23 * * *', dailyUpdates);
+const job = new CronJob('51 23 * * *', dailyUpdates);
 
 job.start()
 
