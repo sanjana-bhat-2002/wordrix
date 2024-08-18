@@ -6,9 +6,18 @@ import SuccessModal from "./SuccessModal";
 import Keypad from "./Keypad";
 import { CompletionStatus } from "@prisma/client";
 
+const fetchDailyWord = async () => {
+  const response = await fetch("/api/fetchword");
+  const data = await response.json();
+  console.log("fetched word", data);
+  return data.word.word;
+};
+
 const GameBoard: React.FC = () => {
+  
   const { data: session } = useSession();
   const [activeRow, setActiveRow] = useState(0);
+  const [dailyWord, setDailyWord] = useState("");
   const [keyColors, setKeyColors] = useState({});
   const [allAttempts, setAllAttempts] = useState<boolean[]>([]);
   const [showModal, setShowModal] = useState(false);
@@ -16,6 +25,15 @@ const GameBoard: React.FC = () => {
   const rows = Array(6).fill(null);
   const [keyPress, setKeyPress] = useState("");
 
+  useEffect(() => {
+    const getWord = async () => {
+      const word = await fetchDailyWord();
+      setDailyWord(word);
+      
+    };
+    getWord();
+  }, []);
+ 
   useEffect(() => {
     if (completionStatus !== CompletionStatus.PENDING) {
       console.log(`Modal will show up, completion status is`, completionStatus)
@@ -58,11 +76,14 @@ const GameBoard: React.FC = () => {
   const handleKeyPress = (key: string) => {
     setKeyPress(key);
   };
+  if (!dailyWord) {
+    return <div>Loading...</div>; // You can show a loading spinner here if you prefer
+  }
 
   return (
     <div className="grid grid-cols-1 gap-2 place-items-center mt-24">
       {rows.map((_, index) => (
-        <Row key={index} updateColors= {updateKeyColors} isActive={index === activeRow} onEnter={handleEnter} keyPress={keyPress} />
+        <Row dailyWord={dailyWord} key={index} updateColors= {updateKeyColors} isActive={index === activeRow} onEnter={handleEnter} keyPress={keyPress} />
       ))}
       <Keypad onKeyPress={handleKeyPress} keyColors={keyColors}/>
       <SuccessModal

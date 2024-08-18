@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import Box from "../../components/widgets/Box";
-import { numberOfLetters, answerArray } from "@/lib/cron" ;
+
 const { generate } = require("random-words");
 import { useWordChecker } from "react-word-checker";
 
@@ -13,17 +13,28 @@ interface RowProps {
   onEnter: (success: boolean) => void;
   keyPress?: string;
   updateColors: (letter: string, color: string) => void
+  dailyWord: string;
 }
 
+// let numberOfLetters: number;
+// let answerArray: string[];
 
 
-const Row = ({ isActive, onEnter, keyPress, updateColors }: RowProps) => {
+const Row = ({ isActive, onEnter, keyPress, updateColors, dailyWord }: RowProps) => {
+    console.log("omme daily word", dailyWord);
+    let numberOfLetters = dailyWord.length
+    let answerArray = dailyWord.split("")
+  
+    console.log("omme", numberOfLetters, answerArray)
+
   const { words, isLoading, wordExists } = useWordChecker("en");
   const [values, setValues] = useState<string[]>(Array(numberOfLetters).fill(""));
   const [submitted, setSubmitted] = useState(false);
   const [colors, setColors] = useState<string[]>(Array(numberOfLetters).fill(""));
   const inputData = useRef<(HTMLInputElement | null)[]>([]);
 
+
+  
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
       if (!submitted) {
