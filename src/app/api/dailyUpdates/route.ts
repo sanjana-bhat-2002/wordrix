@@ -52,7 +52,7 @@ export async function GET() {
       }
     
     return NextResponse.json({ 
-      message: `Status updated for all users and daily word generated`,
+      message: `Status updated for all users and daily word generated, word is ${dailyWord}`,
     }, {status: 200});
   } 
   
