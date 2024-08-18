@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import Box from "../../components/widgets/Box";
-import { numberOfLetters, answerArray } from "@/lib/cron";
+import { numberOfLetters, answerArray } from "@/lib/cron" ;
 const { generate } = require("random-words");
 import { useWordChecker } from "react-word-checker";
 

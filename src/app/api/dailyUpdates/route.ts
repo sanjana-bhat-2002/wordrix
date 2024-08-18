@@ -3,9 +3,7 @@ import { CompletionStatus } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { generate } from "random-words";
 
-let answer;
-let numberOfLetters;
-let answerArray;
+
 
 export async function GET() {
   try {
@@ -35,17 +33,30 @@ export async function GET() {
     console.log("Daily Status updated");
 
     // Generate the word of the day
-    answer = generate({ minLength: 5, maxLength: 5 }).toString().toUpperCase();
-    numberOfLetters = answer.length;
-    answerArray = answer.split("");
-    console.log("No.of letters", numberOfLetters, "answerArray: ", answerArray);
+    let dailyWord = generate({ minLength: 5, maxLength: 7 }).toString().toUpperCase();
+    
+    const allWords = await db.dailyWord.findMany()
+    const existingWord = await db.dailyWord.findFirst({
+        where: {
+          word: dailyWord
+        },
+      });
 
+      if (!existingWord) {
+        await db.dailyWord.create({
+          data: {
+            date: currentDate,
+            word: dailyWord
+          },
+        });
+      }
+    
     return NextResponse.json({ 
-      message: `Status updated for all users`,
-      numberOfLetters: numberOfLetters,
-      answerArray: answerArray 
+      message: `Status updated for all users and daily word generated`,
     }, {status: 200});
-  } catch (error) {
+  } 
+  
+  catch (error) {
     console.error(error);
     return NextResponse.json({ message: 'Internal server error' }, {status: 500});
   } 
