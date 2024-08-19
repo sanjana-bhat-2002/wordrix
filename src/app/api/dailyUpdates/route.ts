@@ -3,6 +3,8 @@ import { CompletionStatus } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { generate } from "random-words";
 
+export const runtime = 'edge';
+
 export async function GET() {
   try {
     const currentDate = new Date();
