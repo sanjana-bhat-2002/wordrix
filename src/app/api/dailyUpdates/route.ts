@@ -33,23 +33,32 @@ export async function GET() {
     console.log("Daily Status updated");
 
     // Generate the word of the day
-    let dailyWord = generate({ minLength: 5, maxLength: 7 }).toString().toUpperCase();
+    let dailyWord;
+    const generateWord = async () => {
+      dailyWord = generate({ minLength: 5, maxLength: 6 }).toString().toUpperCase();
     
-    const allWords = await db.dailyWord.findMany()
-    const existingWord = await db.dailyWord.findFirst({
-        where: {
-          word: dailyWord
-        },
-      });
-
-      if (!existingWord) {
-        await db.dailyWord.create({
-          data: {
-            date: currentDate,
+      const allWords = await db.dailyWord.findMany()
+      const existingWord = await db.dailyWord.findFirst({
+          where: {
             word: dailyWord
           },
         });
-      }
+  
+        if (!existingWord) {
+          await db.dailyWord.create({
+            data: {
+              date: currentDate,
+              word: dailyWord
+            },
+          });
+        }
+  
+        else {
+            generateWord()
+        }
+    }
+    
+    generateWord()
     
     return NextResponse.json({ 
       message: `Status updated for all users and daily word generated, word is ${dailyWord}`,
