@@ -35,7 +35,7 @@ export async function GET() {
     const generateWord = async () => {
       dailyWord = generate({ minLength: 5, maxLength: 6 }).toString().toUpperCase();
     
-      const allWords = await db.dailyWord.findMany()
+      
       const existingWord = await db.dailyWord.findFirst({
           where: {
             word: dailyWord
@@ -52,12 +52,14 @@ export async function GET() {
         }
   
         else {
-            generateWord()
+           await generateWord()
         }
     }
     
     await generateWord();
     
+    if(!dailyWord)
+      return NextResponse.json({message: "Unsuccessful word generation"})
     const response = NextResponse.json({ 
       message: `Status updated for all users and daily word generated, word is ${dailyWord}`,
     }, { status: 200 });
