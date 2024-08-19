@@ -3,8 +3,6 @@ import { CompletionStatus } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { generate } from "random-words";
 
-
-
 export async function GET() {
   try {
     const currentDate = new Date();
@@ -58,15 +56,23 @@ export async function GET() {
         }
     }
     
-    generateWord()
+    await generateWord();
     
-    return NextResponse.json({ 
+    const response = NextResponse.json({ 
       message: `Status updated for all users and daily word generated, word is ${dailyWord}`,
-    }, {status: 200});
+    }, { status: 200 });
+
+    // Add cache-control headers
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    response.headers.set('Expires', '0');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Surrogate-Control', 'no-store');
+
+    return response;
   } 
   
   catch (error) {
     console.error(error);
-    return NextResponse.json({ message: 'Internal server error' }, {status: 500});
+    return NextResponse.json({ message: 'Internal server error' }, { status: 500 });
   } 
 }
