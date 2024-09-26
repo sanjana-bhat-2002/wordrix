@@ -52,7 +52,8 @@ const Content = () => {
   }
 
   useEffect(() => {
-    getData();
+    if(session)
+        getData();
   })
   return (
     <>

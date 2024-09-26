@@ -20,10 +20,7 @@ export const VerificationTemplate = ({ username, emailVerificationToken }: Verif
         <Preview>Preview text that appears in the email client before opening the email.</Preview>
         <Body style={main}>
             <Container style={container}>
-                <Img
-                    src='my-logo.png'
-                    alt='My SaaS'
-                />
+
                 <Text>Hi {username}!</Text>
                 <Text>Welcome to Wordle!</Text>
                 <Text>Please verify your email, with the link below:</Text>

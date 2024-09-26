@@ -27,8 +27,8 @@ const GameBoard: React.FC = () => {
 
   useEffect(() => {
     const getWord = async () => {
-      const word = await fetchDailyWord();
-      setDailyWord(word);
+      //const word = await fetchDailyWord();
+      setDailyWord("RANGE");
       
     };
     getWord();
@@ -43,8 +43,6 @@ const GameBoard: React.FC = () => {
 
   useEffect(() => {
     if (keyPress) {
-      // Handle key press logic here
-      // You may want to pass the keyPress value to the active Row
       console.log("Key pressed:", keyPress);
       setKeyPress(""); // Reset key press
     }
@@ -68,7 +66,7 @@ const GameBoard: React.FC = () => {
         setCompletionStatus(CompletionStatus.FAILED);
       }
       setTimeout(() => {
-        alert("You failed");
+        alert("You failfdsfed");
       }, 100);
     }
   };
@@ -77,7 +75,7 @@ const GameBoard: React.FC = () => {
     setKeyPress(key);
   };
   if (!dailyWord) {
-    return <div>Loading...</div>; // You can show a loading spinner here if you prefer
+    return <div>Loading...</div>; 
   }
 
   return (

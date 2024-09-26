@@ -44,7 +44,7 @@ const SuccessModal = ({ show, onClose, session, status }: ModalProps) => {
     });
   }
   useEffect(() => {
-    if (show) {
+    if (show && status == 'COMPLETED') {
       sendData();
     }
   }, [show]);
@@ -57,7 +57,10 @@ const SuccessModal = ({ show, onClose, session, status }: ModalProps) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-4 rounded shadow-lg">
         <p className="text-blue-600">
-          Yay! You did it {session?.user.username}
+          {
+            status == "COMPLETED" ? `Great job ${session?.user.username}!`:"Better luck next time!"
+          }
+          
         </p>
         <button
           onClick={handleClose}

@@ -11,13 +11,25 @@ const page = async () => {
       <>
         <div className="flex flex-col items-center gap-10">
           <Navbar />
-          <div className="mt-24 text-blue-600">
+          <div className="mt-24 text-white text-2xl">
             Welcome back {session?.user.username}!
           </div>
 
           <ActivityGraph />
         </div>
       </>
+    );
+  }
+  else {
+    return (
+        <>
+          <div className="flex flex-col items-center gap-10">
+          <Navbar />
+          <div className="mt-24 text-white text-2xl">
+          Sign in to see your profile
+          </div>
+        </div>
+        </>
     );
   }
   return <h2>Please login to see the dashboard</h2>;
