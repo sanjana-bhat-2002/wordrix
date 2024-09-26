@@ -21,11 +21,11 @@ interface RowProps {
 
 
 const Row = ({ isActive, onEnter, keyPress, updateColors, dailyWord }: RowProps) => {
-    console.log("omme daily word", dailyWord);
+    
     let numberOfLetters = dailyWord.length
     let answerArray = dailyWord.split("")
   
-    console.log("omme", numberOfLetters, answerArray)
+    //console.log(numberOfLetters, answerArray)
 
   const { words, isLoading, wordExists } = useWordChecker("en");
   const [values, setValues] = useState<string[]>(Array(numberOfLetters).fill(""));
